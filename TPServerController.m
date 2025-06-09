@@ -308,6 +308,7 @@ static TPServerController * _defaultServerController = nil;
 		[[self eventsController] stopPostingEvents];
 		
 		[self takeDownHotBorder:_clientHotBorder];
+		[_clientHotBorder close];
 		_clientHotBorder = nil;
 		
 		/* Update status menu */
