@@ -891,9 +891,9 @@
 				A7C9DEC5059F496500E67CB3 /* Resources */,
 				A7C9DEC6059F496500E67CB3 /* Sources */,
 				A7C9DEC7059F496500E67CB3 /* Frameworks */,
-				A71EA0750A10D5B400805CC6 /* Set revision number */,
 				52ACC2362565FD4E00345EBE /* Embed Frameworks */,
 				5203E59525987BE4009A23E6 /* Sign Sparkle.framework */,
+				A71EA0750A10D5B400805CC6 /* Set revision number */,
 			);
 			buildRules = (
 			);
@@ -1151,6 +1151,7 @@
 				GCC_PREFIX_HEADER = teleport_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abyssoft.teleport;
 				PRODUCT_NAME = teleport;
@@ -1179,6 +1180,7 @@
 				GCC_PREFIX_HEADER = teleport_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abyssoft.teleport;
 				PRODUCT_NAME = teleport;
@@ -1292,6 +1294,7 @@
 				GCC_PREFIX_HEADER = teleport_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abyssoft.teleport;
 				PRODUCT_NAME = teleport;
