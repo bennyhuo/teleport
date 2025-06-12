@@ -152,17 +152,36 @@ static TPBonjourController * _defaultBonjourController = nil;
 
 - (void)netServiceWillPublish:(NSNetService *)service
 {
-	//DebugLog(@"willPublish");
+	DebugLog(@"netServiceWillPublish: %@", service);
+}
+
+- (void)netServiceWillResolve:(NSNetService *)service {
+	DebugLog(@"netServiceWillResolve: %@", service);
 }
 
 - (void)netService:(NSNetService *)service didNotPublish:(NSDictionary *)errorDict
 {
-	//	  DebugLog(@"didNotPublish");
+	DebugLog(@"netServiceDidNotPublish: %@, %@", service, errorDict);
+}
+
+- (void)retryResolve:(NSNetService *)service {
+	if (service.port == -1) {
+		for (NSNetService *_service in _services) {
+			if (_service.hostName == service.hostName) {
+				if([service respondsToSelector:@selector(resolveWithTimeout:)])
+					[service resolveWithTimeout:RESOLVE_TIMEOUT];
+				else
+					[service resolve];
+				return;
+			}
+		}
+	}
 }
 
 - (void)netServiceDidStop:(NSNetService *)service
 {
-	//DebugLog(@"stop");
+	DebugLog(@"netServiceDidStop: %@", service);
+	[self retryResolve:service];
 }
 
 
@@ -183,6 +202,14 @@ static TPBonjourController * _defaultBonjourController = nil;
 - (void)stopBrowsing
 {
 	[_browseService stop];
+	for (NSNetServiceBrowser *_browser in [_browsers allValues]) {
+		[_browser stop];
+	}
+	[_browsers removeAllObjects];
+	for (NSNetService *_service in _services) {
+		[_service stop];
+	}
+	[_services removeAllObjects];
 }
 
 - (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)browser
@@ -217,6 +244,7 @@ static TPBonjourController * _defaultBonjourController = nil;
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveDomain:(NSString *)domainString moreComing:(BOOL)moreComing
 {
+	PRINT_ME
 	NSNetServiceBrowser *browser = [_browsers objectForKey:domainString];
 	
 	if (browser != nil) {
@@ -293,8 +321,6 @@ static TPBonjourController * _defaultBonjourController = nil;
 	
 	if([recordDict[TPRecordProtocolVersionKey] intValue] == PROTOCOL_VERSION) {
 		NSArray * addresses = [service addresses];
-		DebugLog(@"addresses: %@", addresses);
-
 		if([addresses count] == 0)
 			return;
 		
@@ -379,6 +405,8 @@ static TPBonjourController * _defaultBonjourController = nil;
 
 - (void)netService:(NSNetService *)service didNotResolve:(NSDictionary *)errorDict
 {
+	DebugLog(@"netServiceDidNotResolve: service: %@, reason: %@", service, errorDict);
+	[self retryResolve:service];
 }
 
 - (void)netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data
@@ -392,11 +420,14 @@ static TPBonjourController * _defaultBonjourController = nil;
 	
 	if([identifier isEqualToString:previousIdentifier]) {
 		TPRemoteHost * host = [[TPHostsManager defaultManager] hostWithIdentifier:identifier];
+		DebugLog(@"netService: sameId=%@, host=%@", identifier, host);
 		if(host != nil) {
 			[self _updateHost:host withRecordDict:recordDict];
 		}
 	}
 	else {
+		DebugLog(@"netService: newId=%@, prevId=%@", identifier, previousIdentifier);
+
 		TPRemoteHost * remoteHost = [[TPHostsManager defaultManager] hostWithIdentifier:previousIdentifier];
 
 		if(remoteHost != nil) {
