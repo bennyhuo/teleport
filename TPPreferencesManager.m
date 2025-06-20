@@ -161,7 +161,7 @@ static TPPreferencesManager * _sharedPreferencesManager = nil;
 												   SHOW_TEXTUAL_STATUS: @YES,
 												   TIGER_BEHAVIOR: @NO,
 												   ADD_TO_LOGIN_ITEMS: @YES,
-												   DISCONNECT_ON_NETWORK_CONFIG_CHANGE: @NO,
+												   DISCONNECT_ON_NETWORK_CONFIG_CHANGE: @YES,
 												   WRAP_ON_STOP_CONTROL: @YES,
 												   PLAY_SWITCH_SOUND: @NO,
 												   SYNC_MODIFIERS: [NSNumber numberWithInt:YES]}];
