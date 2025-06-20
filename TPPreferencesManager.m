@@ -164,6 +164,7 @@ static TPPreferencesManager * _sharedPreferencesManager = nil;
 												   DISCONNECT_ON_NETWORK_CONFIG_CHANGE: @YES,
 												   WRAP_ON_STOP_CONTROL: @YES,
 												   PLAY_SWITCH_SOUND: @NO,
+                                                   ENABLE_DEBUG_LOG: @NO,
 												   SYNC_MODIFIERS: [NSNumber numberWithInt:YES]}];
 		
 		/* Static prefs */
