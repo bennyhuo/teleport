@@ -37,6 +37,48 @@ static NSString * TPRecordHideIfNotPaired = @"hide";
 
 static TPBonjourController * _defaultBonjourController = nil;
 
+static void pingRemoteAsync(NSString *host) {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		DebugLog(@"ping -c 100 %@", host);
+		NSTask *task = [[NSTask alloc] init];
+		task.launchPath = @"/sbin/ping";
+		task.arguments = @[@"-c", @"100", host];
+		
+		NSPipe *pipe = [NSPipe pipe];
+		task.standardOutput = pipe;
+		task.standardError = pipe;
+		
+		NSFileHandle *outputHandle = pipe.fileHandleForReading;
+		
+		task.terminationHandler = ^(NSTask *finishedTask) {
+			DebugLog(@"ping to %@ - done.", host);
+		};
+		
+		outputHandle.readabilityHandler = ^(NSFileHandle *handle) {
+			NSData *data = [handle availableData];
+			if (data.length == 0) {
+				outputHandle.readabilityHandler = nil;
+				return;
+			}
+			
+			NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+			NSArray *lines = [output componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+			for (NSString *line in lines) {
+				if (line.length > 0) {
+					NSLog(@"%@", line);
+					if ([line containsString:@"bytes from"]) {
+						NSLog(@"ping successfully to %@.", host);
+						[task terminate];
+					}
+				}
+			}
+		};
+		
+		[task launch];
+		DebugLog(@"ping to %@ - start.", host);
+	});
+}
+
 @implementation TPBonjourController
 
 + (TPBonjourController*)defaultController
@@ -375,6 +417,7 @@ static TPBonjourController * _defaultBonjourController = nil;
 			
 			if(![remoteHost isEqual:[TPLocalHost localHost]]) {
 				[[TPHostsManager defaultManager] addBonjourHost:remoteHost];
+				pingRemoteAsync(ipAddressString);
 			}
 			else {
 #if SHOW_LOCALHOST	
