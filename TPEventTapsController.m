@@ -45,6 +45,25 @@ static const char * eventTypeName[] =
 
 @implementation TPEventTapsController
 
+static void setCursorVisibility(BOOL visible) {
+	static CGError error;
+	if (visible) {
+		error = CGDisplayShowCursor(kCGDirectMainDisplay);
+	} else {
+		error = CGDisplayHideCursor(kCGDirectMainDisplay);
+	}
+	DebugLog(@"setCursorVisibility: %@ -> %@", @(visible), @(error));
+
+	if (error != kCGErrorSuccess) {
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)),
+					   dispatch_get_main_queue(), ^{
+			if (error != kCGErrorSuccess) {
+				setCursorVisibility(visible);
+			}
+		});
+	}
+}
+
 + (TPEventsController*)defaultController
 {
 	if(_eventTapsController == nil)
@@ -99,7 +118,7 @@ static CGEventRef eventCallback(CGEventTapProxy proxy, CGEventType type, CGEvent
 	CGSSetConnectionProperty(_CGSDefaultConnection(), _CGSDefaultConnection(), propertyString, kCFBooleanTrue);
 	CFRelease(propertyString);
 	
-	CGDisplayHideCursor(kCGDirectMainDisplay);
+	setCursorVisibility(NO);
 	
 	if(_eventPort == NULL) {
 		CFRunLoopRef runLoop = CFRunLoopGetCurrent();
@@ -177,7 +196,7 @@ static CGEventRef eventCallback(CGEventTapProxy proxy, CGEventType type, CGEvent
 {
 	[super cleanupGettingEvents];
 		
-	CGDisplayShowCursor(kCGDirectMainDisplay);
+	setCursorVisibility(YES);
 }
 
 
