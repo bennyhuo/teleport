@@ -24,25 +24,25 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="teleport" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="12" userLabel="PrefPane">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <rect key="contentRect" x="517" y="450" width="800" height="543"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
-            <value key="minSize" type="size" width="600" height="400"/>
+            <rect key="contentRect" x="517" y="450" width="800" height="600"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <value key="minSize" type="size" width="800" height="600"/>
             <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="543"/>
+                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="186">
-                        <rect key="frame" x="13" y="10" width="774" height="486"/>
+                        <rect key="frame" x="13" y="10" width="774" height="543"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Layout" identifier="layout" id="187">
                                 <view key="view" id="189">
-                                    <rect key="frame" x="10" y="33" width="754" height="390"/>
+                                    <rect key="frame" x="10" y="33" width="754" height="497"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView toolTip="This is the layout area. Drag the controlled hosts wherever you want." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="137" customClass="TPLayoutView">
-                                            <rect key="frame" x="20" y="17" width="716" height="370"/>
+                                            <rect key="frame" x="20" y="17" width="716" height="477"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="152">
@@ -294,7 +294,7 @@
                         </connections>
                     </tabView>
                     <button toolTip="Check to allow your teleport client to control this Mac." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="136">
-                        <rect key="frame" x="18" y="507" width="115" height="18"/>
+                        <rect key="frame" x="18" y="564" width="115" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Share this Mac" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="100136">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -305,7 +305,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKL-Yu-Ajf">
-                        <rect key="frame" x="149" y="507" width="172" height="18"/>
+                        <rect key="frame" x="149" y="564" width="172" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Synchronize pasteboard" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="oMa-Yn-jsJ">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -316,7 +316,7 @@
                         </connections>
                     </button>
                     <button toolTip="About teleport…" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="172">
-                        <rect key="frame" x="752" y="500" width="32" height="32"/>
+                        <rect key="frame" x="752" y="557" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="icon-about" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="100172">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -327,7 +327,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qWU-od-4Bx">
-                        <rect key="frame" x="337" y="507" width="127" height="18"/>
+                        <rect key="frame" x="337" y="564" width="127" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Drag &amp; Drop files" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="gJd-XI-beT">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -338,7 +338,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMe-9j-Hyy">
-                        <rect key="frame" x="480" y="507" width="127" height="18"/>
+                        <rect key="frame" x="480" y="564" width="127" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Sync lock status" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="fIc-dm-HxP">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -349,7 +349,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHF-53-IwL">
-                        <rect key="frame" x="613" y="507" width="133" height="18"/>
+                        <rect key="frame" x="613" y="564" width="133" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Sync sleep status" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="GXj-JD-8n2">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -367,7 +367,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="194" y="375" width="295" height="307"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="162">
                 <rect key="frame" x="0.0" y="0.0" width="295" height="307"/>
@@ -737,7 +737,7 @@ Special thanks to Manu02, Julien and Paul.</string>
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="324" width="377" height="187"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" id="300449">
                 <rect key="frame" x="0.0" y="0.0" width="377" height="187"/>
                 <autoresizingMask key="autoresizingMask"/>
