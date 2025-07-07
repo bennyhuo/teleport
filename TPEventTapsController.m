@@ -11,6 +11,7 @@
 
 #import "TPPreferencesManager.h"
 #import "TPMainController.h"
+#import "TPClientController.h"
 
 #include <Carbon/Carbon.h>
 
@@ -79,11 +80,17 @@ static CGEventRef eventCallback(CGEventTapProxy proxy, CGEventType type, CGEvent
 	NSLog(@"Callback: %@", [TPEventTapsController _eventNameFromType:type]);
 #endif
 
-	if(type == kCGEventTapDisabledByTimeout) {
-		[self _startGettingsEvents];
-	}
-	else {
-		[self _sendEventToListener:(__bridge id)event];
+	if(![[TPClientController defaultController] isControlling]) {
+		[self stopGettingEvents];
+		NSLog(@"eventCallback, _stopGettingEvents when not controlling. type=%d", type);
+	} else {
+		if(type >= kCGEventTapDisabledByTimeout) {
+			[self _startGettingsEvents];
+			NSLog(@"eventCallback, _startGettingsEvents again on type=%d", type);
+		}
+		else {
+			[self _sendEventToListener:(__bridge id)event];
+		}
 	}
 	
 	return NULL;
@@ -178,14 +185,14 @@ static CGEventRef eventCallback(CGEventTapProxy proxy, CGEventType type, CGEvent
 
 - (void)_startGettingsEvents
 {
-	if(_eventPort != NULL) {
+	if(_eventPort != NULL && !CGEventTapIsEnabled(_eventPort)) {
 		CGEventTapEnable(_eventPort, true);
 	}
 }
 
 - (void)_stopGettingEvents
 {
-	if(_eventPort != NULL) {
+	if(_eventPort != NULL && CGEventTapIsEnabled(_eventPort)) {
 		CGEventTapEnable(_eventPort, false);
 	}
 	
